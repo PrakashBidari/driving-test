@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Driving Lesson Assessment Form</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;font-family:Arial,Helvetica,sans-serif;color:#1c2a36}
+.page{max-width:1250px;margin:25px auto;padding:15px}
+.sheet{background:#fff;border:1px solid #9eabb5;border-radius:10px;box-shadow:0 5px 20px #0001;overflow:hidden}
+.top{display:grid;grid-template-columns:1fr 1fr;padding:18px 22px;border-bottom:2px solid #273944;gap:25px}
+.topgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 25px}.field{display:flex;align-items:center;gap:8px}.field label{font-weight:bold;font-size:13px;min-width:65px}.field input{flex:1;border:0;border-bottom:1px solid #657581;padding:6px;outline:none}
+.main{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding:16px}
+.column{display:flex;flex-direction:column;gap:12px}
+.block{border:1px solid #81909a;border-radius:6px;overflow:hidden}
+.block h3{font-size:15px;margin:0;padding:8px 10px;background:#eef2f4;border-bottom:1px solid #aab5bc;color:#182f3c}
+.item{display:grid;grid-template-columns:1fr 48px 48px;align-items:center;min-height:39px;border-bottom:1px solid #d0d7dc;padding:4px 8px;font-size:12px}.item:last-child{border-bottom:0}
+.check{width:25px;height:25px;accent-color:#173d58;margin:auto}
+.sd{font-weight:bold;text-align:center;font-size:12px}.sd input{width:21px;height:21px;vertical-align:middle;accent-color:#173d58}
+.manoeuvres{padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px}.manoeuvres label{border:1px solid #c0cbd2;border-radius:4px;padding:7px;display:flex;gap:7px;align-items:center}
+.single{grid-template-columns:1fr 48px 48px}
+.footer{margin:0 16px 16px;border:1px solid #8e9ca5;border-radius:6px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}.footitem{padding:10px;border-right:1px solid #aeb9c0;font-size:12px}.footitem:last-child{border:0}.footitem input{margin-right:7px}
+.result{display:grid;grid-template-columns:1fr 1fr;border:1px solid #8e9ca5;margin:0 16px 16px;border-radius:6px;overflow:hidden}.result div{padding:12px;border-right:1px solid #aeb9c0}.result div:last-child{border:0}.result label{margin-right:18px;font-weight:bold;font-size:13px}
+.notes{margin:0 16px 16px}.notes textarea{width:100%;min-height:80px;border:1px solid #9eabb5;border-radius:5px;padding:9px}
+.actions{padding:15px 20px;background:#f5f7f9;border-top:1px solid #c1cbd1;display:flex;gap:10px;flex-wrap:wrap}
+button{border:0;border-radius:5px;padding:10px 15px;font-weight:bold;cursor:pointer}.blue{background:#173d58;color:white}.green{background:#198754;color:white}.gray{background:#e1e7eb}.red{background:#c62828;color:white}
+@media(max-width:900px){.main{grid-template-columns:1fr 1fr}.top{grid-template-columns:1fr}.footer,.result{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.main{grid-template-columns:1fr}.topgrid{grid-template-columns:1fr}.footer,.result{grid-template-columns:1fr}.field label{min-width:75px}}
+@media print{body{background:#fff}.page{margin:0;max-width:none}.sheet{box-shadow:none}.actions{display:none}}
+</style>
+</head>
+<body>
+<div class="page"><form id="form" class="sheet">
+
+<div class="top">
+<div class="topgrid">
+<div class="field"><label>Name</label><input name="name"></div>
+<div class="field"><label>Licence no.</label><input name="licence"></div>
+<div class="field"><label>Date</label><input name="date" type="date"></div>
+<div class="field"><label>Time</label><input name="time" type="time"></div>
+</div>
+<div class="field"><label>Signature</label><input name="signature"></div>
+</div>
+
+<div class="main">
+
+<div class="column">
+<div class="block">
+<h3>Eyesight test</h3>
+<div class="item"><span>Eyesight test completed</span><span></span><span><input class="check" type="checkbox" name="eyesight"></span></div>
+</div>
+
+<div class="block">
+<h3>Manoeuvres</h3>
+<div class="manoeuvres">
+<label><input type="checkbox" name="reverse_right"> Reverse / Right</label>
+<label><input type="checkbox" name="reverse_park_road"> Reverse park (road)</label>
+<label><input type="checkbox" name="reverse_park_car"> Reverse park (car park)</label>
+<label><input type="checkbox" name="forward_park"> Forward park</label>
+</div>
+</div>
+
+<div class="block"><h3>Control</h3>
+<div class="item"><span>Control</span><span class="sd">S <input type="radio" name="control" value="S"></span><span class="sd">D <input type="radio" name="control" value="D"></span></div>
+<div class="item"><span>Observation</span><span class="sd">S <input type="radio" name="observation" value="S"></span><span class="sd">D <input type="radio" name="observation" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Show me / Tell me</h3>
+<div class="item"><span>Show me / Tell me</span><span class="sd">S <input type="radio" name="showtell" value="S"></span><span class="sd">D <input type="radio" name="showtell" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Controlled stop</h3>
+<div class="item"><span>Controlled stop</span><span class="sd">S <input type="radio" name="stop" value="S"></span><span class="sd">D <input type="radio" name="stop" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Control</h3>
+<div class="item"><span>Accelerator</span><span class="sd">S <input type="radio" name="accelerator" value="S"></span><span class="sd">D <input type="radio" name="accelerator" value="D"></span></div>
+<div class="item"><span>Clutch</span><span class="sd">S <input type="radio" name="clutch" value="S"></span><span class="sd">D <input type="radio" name="clutch" value="D"></span></div>
+<div class="item"><span>Gears</span><span class="sd">S <input type="radio" name="gears" value="S"></span><span class="sd">D <input type="radio" name="gears" value="D"></span></div>
+<div class="item"><span>Footbrake</span><span class="sd">S <input type="radio" name="footbrake" value="S"></span><span class="sd">D <input type="radio" name="footbrake" value="D"></span></div>
+<div class="item"><span>Parking brake</span><span class="sd">S <input type="radio" name="parking" value="S"></span><span class="sd">D <input type="radio" name="parking" value="D"></span></div>
+<div class="item"><span>Steering</span><span class="sd">S <input type="radio" name="steering" value="S"></span><span class="sd">D <input type="radio" name="steering" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Precautions</h3><div class="item"><span>Precautions</span><span class="sd">S <input type="radio" name="precautions" value="S"></span><span class="sd">D <input type="radio" name="precautions" value="D"></span></div></div>
+<div class="block"><h3>Ancillary Controls</h3><div class="item"><span>Ancillary Controls</span><span class="sd">S <input type="radio" name="ancillary" value="S"></span><span class="sd">D <input type="radio" name="ancillary" value="D"></span></div></div>
+</div>
+
+<div class="column">
+<div class="block"><h3>Move off</h3>
+<div class="item"><span>Safety</span><span class="sd">S <input type="radio" name="move_safety" value="S"></span><span class="sd">D <input type="radio" name="move_safety" value="D"></span></div>
+<div class="item"><span>Control</span><span class="sd">S <input type="radio" name="move_control" value="S"></span><span class="sd">D <input type="radio" name="move_control" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Use of Mirrors</h3>
+<div class="item"><span>Signalling</span><span class="sd">S <input type="radio" name="mirror_signal" value="S"></span><span class="sd">D <input type="radio" name="mirror_signal" value="D"></span></div>
+<div class="item"><span>Change direction</span><span class="sd">S <input type="radio" name="mirror_direction" value="S"></span><span class="sd">D <input type="radio" name="mirror_direction" value="D"></span></div>
+<div class="item"><span>Change speed</span><span class="sd">S <input type="radio" name="mirror_speed" value="S"></span><span class="sd">D <input type="radio" name="mirror_speed" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Signals</h3>
+<div class="item"><span>Necessary</span><span class="sd">S <input type="radio" name="signal_necessary" value="S"></span><span class="sd">D <input type="radio" name="signal_necessary" value="D"></span></div>
+<div class="item"><span>Correctly</span><span class="sd">S <input type="radio" name="signal_correct" value="S"></span><span class="sd">D <input type="radio" name="signal_correct" value="D"></span></div>
+<div class="item"><span>Timed</span><span class="sd">S <input type="radio" name="signal_timed" value="S"></span><span class="sd">D <input type="radio" name="signal_timed" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Junctions</h3>
+<div class="item"><span>Approach speed</span><span class="sd">S <input type="radio" name="junction_speed" value="S"></span><span class="sd">D <input type="radio" name="junction_speed" value="D"></span></div>
+<div class="item"><span>Observation</span><span class="sd">S <input type="radio" name="junction_obs" value="S"></span><span class="sd">D <input type="radio" name="junction_obs" value="D"></span></div>
+<div class="item"><span>Turning right</span><span class="sd">S <input type="radio" name="turn_right" value="S"></span><span class="sd">D <input type="radio" name="turn_right" value="D"></span></div>
+<div class="item"><span>Turning left</span><span class="sd">S <input type="radio" name="turn_left" value="S"></span><span class="sd">D <input type="radio" name="turn_left" value="D"></span></div>
+<div class="item"><span>Cutting corners</span><span class="sd">S <input type="radio" name="corners" value="S"></span><span class="sd">D <input type="radio" name="corners" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Judgement</h3>
+<div class="item"><span>Overtaking</span><span class="sd">S <input type="radio" name="overtaking" value="S"></span><span class="sd">D <input type="radio" name="overtaking" value="D"></span></div>
+<div class="item"><span>Meeting</span><span class="sd">S <input type="radio" name="meeting" value="S"></span><span class="sd">D <input type="radio" name="meeting" value="D"></span></div>
+<div class="item"><span>Crossing</span><span class="sd">S <input type="radio" name="crossing" value="S"></span><span class="sd">D <input type="radio" name="crossing" value="D"></span></div>
+</div>
+</div>
+
+<div class="column">
+<div class="block"><h3>Positioning</h3>
+<div class="item"><span>Normal driving</span><span class="sd">S <input type="radio" name="normal_driving" value="S"></span><span class="sd">D <input type="radio" name="normal_driving" value="D"></span></div>
+<div class="item"><span>Lane discipline</span><span class="sd">S <input type="radio" name="lane" value="S"></span><span class="sd">D <input type="radio" name="lane" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Pedestrian crossings</h3><div class="item"><span>Pedestrian crossings</span><span class="sd">S <input type="radio" name="pedestrian" value="S"></span><span class="sd">D <input type="radio" name="pedestrian" value="D"></span></div></div>
+
+<div class="block"><h3>Position / normal stop</h3><div class="item"><span>Position / normal stop</span><span class="sd">S <input type="radio" name="normal_stop" value="S"></span><span class="sd">D <input type="radio" name="normal_stop" value="D"></span></div></div>
+
+<div class="block"><h3>Awareness planning</h3><div class="item"><span>Awareness planning</span><span class="sd">S <input type="radio" name="awareness" value="S"></span><span class="sd">D <input type="radio" name="awareness" value="D"></span></div></div>
+
+<div class="block"><h3>Clearance</h3><div class="item"><span>Clearance</span><span class="sd">S <input type="radio" name="clearance" value="S"></span><span class="sd">D <input type="radio" name="clearance" value="D"></span></div></div>
+
+<div class="block"><h3>Following distance</h3><div class="item"><span>Following distance</span><span class="sd">S <input type="radio" name="following" value="S"></span><span class="sd">D <input type="radio" name="following" value="D"></span></div></div>
+
+<div class="block"><h3>Use of speed</h3><div class="item"><span>Use of speed</span><span class="sd">S <input type="radio" name="speed" value="S"></span><span class="sd">D <input type="radio" name="speed" value="D"></span></div></div>
+
+<div class="block"><h3>Progress</h3>
+<div class="item"><span>Appropriate speed</span><span class="sd">S <input type="radio" name="appropriate_speed" value="S"></span><span class="sd">D <input type="radio" name="appropriate_speed" value="D"></span></div>
+<div class="item"><span>Undue hesitation</span><span class="sd">S <input type="radio" name="hesitation" value="S"></span><span class="sd">D <input type="radio" name="hesitation" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Response to signs / signals</h3>
+<div class="item"><span>Traffic signs</span><span class="sd">S <input type="radio" name="traffic_signs" value="S"></span><span class="sd">D <input type="radio" name="traffic_signs" value="D"></span></div>
+<div class="item"><span>Road markings</span><span class="sd">S <input type="radio" name="road_markings" value="S"></span><span class="sd">D <input type="radio" name="road_markings" value="D"></span></div>
+<div class="item"><span>Traffic lights</span><span class="sd">S <input type="radio" name="traffic_lights" value="S"></span><span class="sd">D <input type="radio" name="traffic_lights" value="D"></span></div>
+<div class="item"><span>Traffic controllers</span><span class="sd">S <input type="radio" name="controllers" value="S"></span><span class="sd">D <input type="radio" name="controllers" value="D"></span></div>
+<div class="item"><span>Other road users</span><span class="sd">S <input type="radio" name="road_users" value="S"></span><span class="sd">D <input type="radio" name="road_users" value="D"></span></div>
+</div>
+
+<div class="block"><h3>Total faults</h3><div class="item"><span>Fault count</span><input name="faults" type="number" min="0" style="width:65px;padding:5px;border:1px solid #aab6bf;border-radius:4px"><span></span></div></div>
+</div>
+</div>
+
+<div class="result">
+<div><b>Result</b><br><label><input type="radio" name="result" value="Pass"> Pass</label><label><input type="radio" name="result" value="Fail"> Fail</label></div>
+<div><b>Notes / Must-be Focus Area</b><input name="focus" style="width:75%;padding:7px;border:1px solid #aab6bf;border-radius:4px"></div>
+</div>
+
+<div class="footer">
+<div class="footitem"><label><input type="checkbox" name="eta"> ETA</label></div>
+<div class="footitem"><label><input type="checkbox" name="physical"> Physical</label></div>
+<div class="footitem"><label><input type="checkbox" name="verbal"> Verbal</label></div>
+<div class="footitem"><label><input type="checkbox" name="eco"> ECO</label></div>
+<div class="footitem"><label><input type="checkbox" name="control_footer"> Control</label></div>
+<div class="footitem"><label><input type="checkbox" name="planning"> Planning</label></div>
+</div>
+
+<div class="notes"><textarea name="remarks" placeholder="Instructor remarks / development points / next lesson focus..."></textarea></div>
+
+<div class="actions">
+<button type="button" class="green" onclick="saveForm()">Save Form</button>
+<button type="button" class="blue" onclick="window.print()">Print / Save PDF</button>
+<button type="button" class="blue" onclick="exportCSV()">Export CSV</button>
+<button type="button" class="gray" onclick="document.getElementById('form').reset()">Reset</button>
+</div>
+</form></div>
+
+<script>
+function saveForm(){
+ const d={};
+ document.querySelectorAll("input,textarea,select").forEach((e,i)=>d[i]={name:e.name,type:e.type,value:e.value,checked:e.checked});
+ localStorage.setItem("DrivingAssessmentForm",JSON.stringify(d));
+ alert("Form saved successfully.");
+}
+function restore(){
+ const raw=localStorage.getItem("DrivingAssessmentForm");if(!raw)return;
+ Object.values(JSON.parse(raw)).forEach(x=>{
+  if(!x.name)return;
+  document.querySelectorAll(`[name="${CSS.escape(x.name)}"]`).forEach(e=>{
+   if(e.type==="radio"||e.type==="checkbox")e.checked=x.checked;else e.value=x.value;
+  });
+ });
+}
+function exportCSV(){
+ const rows=[["Driving Lesson Assessment Form"],["Field","Value"]];
+ document.querySelectorAll("input,textarea,select").forEach(e=>{
+  if((e.type==="radio"||e.type==="checkbox")&&!e.checked)return;
+  rows.push([e.name||"",e.value||""]);
+ });
+ const csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="driving_assessment_form.csv";a.click();
+}
+restore();
+</script>
+</body>
+</html>

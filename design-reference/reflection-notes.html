@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driving Lesson Reflection Notes</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eef2f6;color:#182536;font-family:Arial,Helvetica,sans-serif}
+.page{max-width:900px;margin:28px auto;padding:0 16px}
+.form{background:#fff;border:1px solid #b9c4d0;box-shadow:0 5px 20px rgba(20,45,70,.12)}
+.header{background:#123b70;color:#fff;padding:22px 28px;display:flex;justify-content:space-between;align-items:center}
+.header h1{margin:0;font-size:24px;letter-spacing:.3px}
+.header p{margin:5px 0 0;font-size:12px;opacity:.9}
+.car{font-size:38px}
+.identity{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:20px 28px;border-bottom:1px solid #c6d0da}
+.field{display:flex;align-items:center;gap:10px}
+.field label{font-weight:bold;font-size:13px;white-space:nowrap}
+.field input{flex:1;border:0;border-bottom:1px solid #788797;padding:7px 4px;font-size:14px;outline:none}
+.section{border-bottom:1px solid #aebac6}
+.section-title{background:#e8f0f7;color:#123b70;padding:11px 28px;font-weight:800;font-size:14px;border-bottom:1px solid #aebac6}
+.section-content{padding:20px 28px}
+textarea{width:100%;min-height:155px;border:1px solid #9eabb9;border-radius:4px;padding:12px;font-size:14px;line-height:1.55;resize:vertical;outline:none}
+.prompt{font-size:12px;color:#516174;margin-bottom:9px}
+.scale-wrap{padding:20px 28px}
+.scale-title{font-weight:bold;color:#123b70;margin-bottom:12px}
+.scale{display:grid;grid-template-columns:repeat(11,1fr);border:1px solid #aebac6}
+.scale label{padding:9px 2px;text-align:center;border-right:1px solid #cbd4dd;font-size:12px}
+.scale label:last-child{border-right:0}
+.scale input{display:block;margin:0 auto 5px;accent-color:#123b70}
+.scale-notes{display:flex;justify-content:space-between;font-size:12px;color:#4d5d70;margin-top:7px}
+.goals textarea{min-height:175px}
+.footer{padding:18px 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;padding:18px 28px;background:#f5f8fb;border-top:1px solid #c6d0da}
+button{border:0;border-radius:6px;padding:10px 16px;font-weight:bold;cursor:pointer}
+.primary{background:#123b70;color:#fff}.green{background:#198754;color:#fff}.gray{background:#e2e8ef;color:#203247}
+.status{padding:10px 28px;color:#198754;font-weight:bold;display:none}
+@media(max-width:600px){
+.identity,.footer{grid-template-columns:1fr}
+.header{padding:18px}.header h1{font-size:19px}
+.identity,.section-content,.scale-wrap,.footer,.actions{padding-left:18px;padding-right:18px}
+.scale label{font-size:10px;padding:7px 0}.scale-notes{font-size:10px}
+}
+@media print{
+body{background:#fff}.page{margin:0;max-width:none;padding:0}.form{box-shadow:none}
+.actions{display:none}.header{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<form id="reflectionForm" class="form">
+
+<header class="header">
+<div>
+<h1>DRIVING LESSON REFLECTION NOTES</h1>
+<p>Student self-reflection & driving development record</p>
+</div>
+<div class="car">🚗</div>
+</header>
+
+<div class="identity">
+<div class="field"><label>Name:</label><input name="name" required></div>
+<div class="field"><label>Date:</label><input name="date" type="date"></div>
+</div>
+
+<section class="section">
+<div class="section-title">1. WHAT WENT WELL TODAY?</div>
+<div class="section-content">
+<div class="prompt">Consider what we have covered in today's lesson. Tell me what you thought you did well.</div>
+<textarea name="went_well" placeholder="Example: Manoeuvres – Bay Park, Parallel Park, Reverse Bay Park..."></textarea>
+</div>
+</section>
+
+<section class="section">
+<div class="section-title">2. WHAT COULD WE DO DIFFERENTLY?</div>
+<div class="section-content">
+<div class="prompt">If you could do anything differently, what would you like to have done better?</div>
+<textarea name="differently" placeholder="Example: Approaching junctions, gear changing, MSM – mirrors & signal..."></textarea>
+</div>
+</section>
+
+<section class="section">
+<div class="section-title">3. SCALE CURRENT</div>
+<div class="scale-wrap">
+<div class="scale-title">Rate your current driving standard from 0 to 10.</div>
+<div class="scale" id="scale"></div>
+<div class="scale-notes"><span><b>0</b> – Very Bad</span><span><b>10</b> – Very Good</span></div>
+</div>
+</section>
+
+<section class="section goals">
+<div class="section-title">4. GOALS FOR NEXT LESSON</div>
+<div class="section-content">
+<div class="prompt">
+What would you like to work on next time? Practice current development items and areas identified for improvement?
+Increase difficulty? Reduce my support level? Ready to move on to a new subject?
+</div>
+<textarea name="goals" placeholder="Example: Big Roundabout (Spiral)"></textarea>
+</div>
+</section>
+
+<div class="footer">
+<div class="field"><label>Instructor:</label><input name="instructor"></div>
+<div class="field"><label>Next Lesson Date:</label><input name="next_date" type="date"></div>
+</div>
+
+<div id="saved" class="status">✓ Reflection record saved successfully.</div>
+
+<div class="actions">
+<button type="button" class="green" onclick="saveRecord()">Save Reflection</button>
+<button type="button" class="primary" onclick="window.print()">Print / Save PDF</button>
+<button type="button" class="gray" onclick="document.getElementById('reflectionForm').reset();clearScale()">Reset</button>
+</div>
+</form>
+</div>
+
+<script>
+const scale=document.getElementById("scale");
+for(let i=0;i<=10;i++){
+ const label=document.createElement("label");
+ label.innerHTML=`<input type="radio" name="current_scale" value="${i}">${i}`;
+ scale.appendChild(label);
+}
+function saveRecord(){
+ const data={};
+ document.querySelectorAll("#reflectionForm input,#reflectionForm textarea").forEach((e,i)=>{
+   data[i]={name:e.name,type:e.type,value:e.value,checked:e.checked};
+ });
+ localStorage.setItem("DrivingLessonReflection",JSON.stringify(data));
+ document.getElementById("saved").style.display="block";
+}
+function restore(){
+ const raw=localStorage.getItem("DrivingLessonReflection");
+ if(!raw)return;
+ Object.values(JSON.parse(raw)).forEach(x=>{
+   if(!x.name)return;
+   document.querySelectorAll(`[name="${CSS.escape(x.name)}"]`).forEach(e=>{
+     if(e.type==="radio")e.checked=x.checked;
+     else e.value=x.value;
+   });
+ });
+}
+function clearScale(){
+ document.querySelectorAll('input[name="current_scale"]').forEach(e=>e.checked=false);
+ document.getElementById("saved").style.display="none";
+}
+restore();
+</script>
+</body>
+</html>

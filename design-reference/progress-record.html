@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MBT Drivers Record</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef3f7;font-family:Arial,sans-serif;color:#172638}
+.wrap{max-width:1400px;margin:22px auto;padding:0 14px}.card{background:#fff;border:1px solid #aebdca;border-radius:9px;overflow:hidden;box-shadow:0 4px 15px #123b7014}
+.header{display:flex;justify-content:space-between;align-items:center;background:#123b70;color:#fff;padding:18px 24px}.header h1{margin:0;font-size:27px}.header p{margin:4px 0 0;font-size:12px}.brand{font-size:30px}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:25px;padding:18px 24px}.field{display:flex;align-items:center;margin:7px 0}.field label{width:130px;font-size:13px;font-weight:bold}.field input{flex:1;border:0;border-bottom:1px solid #8493a3;padding:7px;outline:0}
+.section{background:#dcebf5;color:#123b70;font-weight:bold;padding:10px 15px;border-top:1px solid #9eb3c4;border-bottom:1px solid #9eb3c4}
+.scroll{overflow:auto}table{border-collapse:collapse;width:max-content;min-width:100%}th,td{border:1px solid #9eacb9;font-size:11px;text-align:center;padding:4px}thead th{background:#dcebf5;color:#123b70;font-weight:bold;height:46px}
+.skill{background:#edf5fa!important;text-align:left!important;font-weight:bold;position:sticky;left:0;z-index:2;min-width:190px;max-width:210px}.group{background:#123b70!important;color:#fff!important;font-weight:bold;min-width:108px;position:sticky;left:190px;z-index:3}
+.lesson{min-width:72px}.lesson input[type=date]{width:68px;font-size:9px;border:0;background:transparent}.rating{width:58px;height:32px;accent-color:#1d63a8}
+.legend{display:grid;grid-template-columns:repeat(5,1fr)}.legend div{padding:12px;text-align:center;border-right:1px solid #c7d2dc;font-size:11px}.legend b{display:block;font-size:19px;color:#123b70}.l1{background:#f0f2f4}.l2{background:#edf4fb}.l3{background:#fff4d8}.l4{background:#e9f6ed}.l5{background:#d9f0df}
+.notes{padding:15px 20px;display:grid;grid-template-columns:1fr 1fr;gap:15px}.notes textarea{width:100%;min-height:100px;border:1px solid #aebdca;border-radius:5px;padding:9px;resize:vertical}
+.actions{padding:15px 20px;display:flex;gap:9px;flex-wrap:wrap;background:#f6f9fb;border-top:1px solid #c4d0da}button{border:0;border-radius:5px;padding:10px 15px;font-weight:bold;cursor:pointer}.blue{background:#123b70;color:#fff}.green{background:#198754;color:#fff}.gray{background:#e2e8ee}.red{background:#c62828;color:#fff}
+.saved{display:none;padding:9px 20px;color:#17733f;font-weight:bold}
+@media(max-width:700px){.info,.notes{grid-template-columns:1fr}.header h1{font-size:20px}.group{left:190px}.legend{grid-template-columns:1fr 1fr}}
+@media print{body{background:#fff}.wrap{max-width:none;margin:0;padding:0}.card{box-shadow:none}.actions,.saved{display:none!important}.header,.section,.group{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<div class="header"><div><h1>MBT DRIVERS RECORD</h1><p>Driving Student Skill Development & Progress Record</p></div><div class="brand">🚗</div></div>
+
+<div class="info">
+<div>
+<div class="field"><label>Student's Name:</label><input name="student"></div>
+<div class="field"><label>Licence No.:</label><input name="licence"></div>
+</div>
+<div>
+<div class="field"><label>Instructor:</label><input name="instructor"></div>
+<div class="field"><label>Vehicle Reg. No.:</label><input name="vehicle"></div>
+</div>
+</div>
+
+<div class="section">SKILL PROGRESSION RECORD — Select one level for each skill on each lesson</div>
+<div class="scroll">
+<table id="record"><thead><tr id="head"><th class="group">AREA</th><th class="skill">DRIVING SKILL</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div class="section">PROGRESS SCALE</div>
+<div class="legend">
+<div class="l1"><b>1</b>Introduce</div>
+<div class="l2"><b>2</b>Under full instruction</div>
+<div class="l3"><b>3</b>Prompted</div>
+<div class="l4"><b>4</b>Seldom prompted</div>
+<div class="l5"><b>5</b>Independent</div>
+</div>
+
+<div class="section">INSTRUCTOR NOTES / MUST-BE FOCUS AREAS</div>
+<div class="notes">
+<textarea name="focus" placeholder="Must-be focus areas, weaknesses, safety concerns and skills requiring further practice..."></textarea>
+<textarea name="comments" placeholder="Instructor comments, progress observations and next lesson priorities..."></textarea>
+</div>
+
+<div class="actions">
+<button class="green" type="button" onclick="save()">Save Record</button>
+<button class="blue" type="button" onclick="window.print()">Print / Save PDF</button>
+<button class="blue" type="button" onclick="exportCSV()">Export CSV</button>
+<button class="gray" type="button" onclick="document.querySelector('form')?.reset();location.reload()">Reset</button>
+<button class="red" type="button" onclick="localStorage.removeItem('mbtDriversRecord');alert('Saved record deleted.')">Delete Saved</button>
+</div>
+<div id="saved" class="saved">✓ Record saved successfully in this browser.</div>
+</div>
+</div>
+
+<script>
+const lessons=20;
+const groups=[
+["CORE DRIVING",["Cockpit Check","Safety Check","Controls and Instruments","Moving Away & Stopping","Safe Positioning","Mirrors - Vision & Use","Signals","Anticipation & Planning","Use of Speed"]],
+["OTHER TRAFFIC",["Meeting Traffic","Crossing Traffic","Overtaking","Roundabouts","Pedestrian Crossing","Dual Carriageways","Turning the Vehicle Around"]],
+["REVERSING",["Reversing","Straight Reverse","Left Reverse","Right Reverse"]]
+];
+
+const head=document.getElementById("head");
+for(let i=1;i<=lessons;i++){
+ const th=document.createElement("th");th.className="lesson";
+ th.innerHTML=`Lesson ${i}<br><input type="date" name="date_${i}" title="Date of lesson ${i}">`;
+ head.appendChild(th);
+}
+const tbody=document.querySelector("#record tbody");
+let row=0;
+groups.forEach(([group,skills])=>{
+ skills.forEach((skill,i)=>{
+  const tr=document.createElement("tr");
+  if(i===0){const td=document.createElement("td");td.className="group";td.rowSpan=skills.length;td.textContent=group;tr.appendChild(td)}
+  const sd=document.createElement("td");sd.className="skill";sd.textContent=skill;tr.appendChild(sd);
+  for(let j=1;j<=lessons;j++){
+   const td=document.createElement("td");
+   td.innerHTML=`<input class="rating" type="radio" name="r${row}_${j}" value="1" title="1 - Introduce">
+   <input class="rating" type="radio" name="r${row}_${j}" value="2" title="2 - Under full instruction">
+   <input class="rating" type="radio" name="r${row}_${j}" value="3" title="3 - Prompted">
+   <input class="rating" type="radio" name="r${row}_${j}" value="4" title="4 - Seldom prompted">
+   <input class="rating" type="radio" name="r${row}_${j}" value="5" title="5 - Independent">`;
+   tr.appendChild(td);
+  }
+  tbody.appendChild(tr);row++;
+ });
+});
+
+function save(){
+ const data={};
+ document.querySelectorAll("input,textarea").forEach((e,i)=>{
+  data[i]={name:e.name,type:e.type,value:e.value,checked:e.checked};
+ });
+ localStorage.setItem("mbtDriversRecord",JSON.stringify(data));
+ document.getElementById("saved").style.display="block";
+}
+function restore(){
+ const raw=localStorage.getItem("mbtDriversRecord");if(!raw)return;
+ Object.values(JSON.parse(raw)).forEach(x=>{
+  document.querySelectorAll(`[name="${CSS.escape(x.name)}"]`).forEach(e=>{
+   if(e.type==="radio")e.checked=x.checked;else e.value=x.value;
+  });
+ });
+}
+function exportCSV(){
+ let lines=[["MBT DRIVERS RECORD"],["Student",document.querySelector('[name="student"]').value],[],["Skill","Lesson","Rating"]];
+ document.querySelectorAll("#record tbody tr").forEach((tr,r)=>{
+  const skill=tr.querySelector(".skill").textContent;
+  for(let j=1;j<=lessons;j++){
+   const checked=tr.querySelector(`input[name="r${r}_${j}"]:checked`);
+   const date=document.querySelector(`[name="date_${j}"]`).value;
+   lines.push([skill,date,checked?checked.value:""]);
+  }
+ });
+ const csv=lines.map(a=>a.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="MBT_Drivers_Record.csv";a.click();
+}
+restore();
+</script>
+</body>
+</html>
